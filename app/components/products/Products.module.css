@@ -1,0 +1,15 @@
+.postCard {
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 10px;
+}
+.postTagContainer {
+  flex-direction: row;
+  border: 1px solid green;
+  justify-content: center;
+  align-items: center;
+}
+.postTag {
+  width: fit-content;
+  border: 1px solid red;
+}
