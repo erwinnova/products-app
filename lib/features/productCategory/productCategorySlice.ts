@@ -30,6 +30,7 @@ export const productCategorySlice = createAppSlice({
     getCategories: create.asyncThunk(
       async () => {
         const response = await fetchProductCategories();
+        console.log("response", response);
         // The value we return becomes the `fulfilled` action payload
         return response;
       },

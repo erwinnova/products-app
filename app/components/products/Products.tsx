@@ -13,6 +13,11 @@ import {
 import { ProductDetailsType } from "@/app/_types/product.type";
 import styles from "./Products.module.css";
 import Image from "next/image";
+import {
+  getCategories,
+  selectCategories,
+  selectCategory,
+} from "@/lib/features/productCategory/productCategorySlice";
 
 export const Products = () => {
   const dispatch = useAppDispatch();
@@ -20,6 +25,7 @@ export const Products = () => {
   const skip = useAppSelector(skipProduct);
   const limit = useAppSelector(limitProduct);
   const order = useAppSelector(selectOrder);
+  const categories = useAppSelector(selectCategories);
 
   const renderTags = (product: ProductDetailsType) => {
     return product.tags.map((val) => {
@@ -30,6 +36,13 @@ export const Products = () => {
   const initData = async () => {
     const params = { limit, skip, order, sortBy: "price" };
     dispatch(getProducts(params));
+    dispatch(getCategories());
+  };
+
+  const renderCategory = (param: string[]) => {
+    return param.map((val) => {
+      return <option value={val}>{val}</option>;
+    });
   };
 
   useEffect(() => {
@@ -38,20 +51,39 @@ export const Products = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <label htmlFor="price">Price: </label>
+      <div>
+        <label htmlFor="price">Price: </label>
 
-      <select
-        name="price"
-        id="price"
-        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-          dispatch(setOrder(e.target.value))
-        }
-      >
-        <option value="asc" selected>
-          Terendah
-        </option>
-        <option value="desc">Tertinggi</option>
-      </select>
+        <select
+          name="price"
+          id="price"
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            dispatch(setOrder(e.target.value))
+          }
+        >
+          <option value="asc" selected>
+            Terendah
+          </option>
+          <option value="desc">Tertinggi</option>
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="category">Category: </label>
+
+        <select
+          name="category"
+          id="category"
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            dispatch(setOrder(e.target.value))
+          }
+        >
+          <option value="" selected>
+            All
+          </option>
+          {renderCategory(categories)}
+        </select>
+      </div>
 
       <div className="grid gap-4 grid-cols-4 grid-rows-2">
         {products.length > 0 &&
