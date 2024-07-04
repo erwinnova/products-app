@@ -44,6 +44,7 @@ export const productsSlice = createAppSlice({
         skip: number;
         sortBy: string;
         order: string;
+        category: string;
       }) => {
         const response = await fetchProducts(param);
         // The value we return becomes the `fulfilled` action payload

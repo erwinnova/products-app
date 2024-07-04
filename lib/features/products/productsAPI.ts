@@ -4,14 +4,16 @@ export const fetchProducts = async ({
   skip,
   sortBy,
   order,
+  category,
 }: {
   limit: number;
   skip: number;
   sortBy: string;
   order: string;
+  category: string;
 }) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/products?limit=${limit}&skip=${skip}&sortBy=${sortBy}&order=${order}`
+    `${process.env.NEXT_PUBLIC_API_URL}/products${category}?limit=${limit}&skip=${skip}&sortBy=${sortBy}&order=${order}`
   );
   const result = await response.json();
 

@@ -17,6 +17,7 @@ import {
   getCategories,
   selectCategories,
   selectCategory,
+  setCategory,
 } from "@/lib/features/productCategory/productCategorySlice";
 
 export const Products = () => {
@@ -26,6 +27,7 @@ export const Products = () => {
   const limit = useAppSelector(limitProduct);
   const order = useAppSelector(selectOrder);
   const categories = useAppSelector(selectCategories);
+  const category = useAppSelector(selectCategory);
 
   const renderTags = (product: ProductDetailsType) => {
     return product.tags.map((val) => {
@@ -34,7 +36,7 @@ export const Products = () => {
   };
 
   const initData = async () => {
-    const params = { limit, skip, order, sortBy: "price" };
+    const params = { limit, skip, order, sortBy: "price", category };
     dispatch(getProducts(params));
     dispatch(getCategories());
   };
@@ -47,7 +49,7 @@ export const Products = () => {
 
   useEffect(() => {
     initData();
-  }, [order]);
+  }, [order, category]);
 
   return (
     <div className="container mx-auto px-4">
@@ -75,7 +77,7 @@ export const Products = () => {
           name="category"
           id="category"
           onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            dispatch(setOrder(e.target.value))
+            dispatch(setCategory(`/category/${e.target.value}`))
           }
         >
           <option value="" selected>
