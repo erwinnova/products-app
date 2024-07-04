@@ -43,9 +43,7 @@ export const ProductDetails = () => {
         <div className={styles.postTitle}>
           Rp. {product?.price.toLocaleString("id-ID")}
         </div>
-        <div className={styles.postTitle}>
-          {product?.description.substring(0, 255)}... <a>read more</a>
-        </div>
+        <div className={styles.postTitle}>{product?.description}</div>
         <div className="grid grid-flow-col auto-cols-max gap-4">
           {renderTags(product)}
         </div>
